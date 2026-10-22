@@ -1,6 +1,5 @@
-
 {
   "config_version": 1,
-  "api_base_url": "https://publishing-experience-ranking-coalition.trycloudflare.com/api/v1/",
+  "api_base_url": "https://atlas-ringtone-morgan-hereby.trycloudflare.com/api/v1/",
   "release_endpoint": "app/version"
 }
