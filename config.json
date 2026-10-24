@@ -1,5 +1,6 @@
+
 {
   "config_version": 1,
-  "api_base_url": "https://reservation-lender-uniprotkb-alfred.trycloudflare.com/api/v1/",
+  "api_base_url": "https://suzuki-antibodies-located-pmc.trycloudflare.com/api/v1/",
   "release_endpoint": "app/version"
 }
