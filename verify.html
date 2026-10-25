@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <title>Verify | StreamBox</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 24px;
+      display: flex; align-items: center; justify-content: center;
+      background: #090b12; color: #f5f5f7;
+      font-family: system-ui, sans-serif;
+    }
+    .card {
+      width: 100%; max-width: 420px; padding: 30px 22px;
+      border: 1px solid #292d3b; border-radius: 22px;
+      background: #121521; text-align: center;
+    }
+    .logo { font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #e50914; }
+    .shield {
+      margin: 28px auto 16px; width: 64px; height: 64px;
+      display: grid; place-items: center; border-radius: 50%;
+      background: #20263a; font-size: 30px;
+    }
+    h1 { font-size: 22px; margin: 12px 0; }
+    p { color: #aeb4c5; font-size: 14px; line-height: 1.6; }
+    .captcha { display: flex; justify-content: center; margin: 24px 0; }
+    #status { min-height: 24px; font-size: 14px; overflow-wrap: anywhere; }
+    .note { font-size: 12px; color: #7e879d; margin-top: 20px; }
+  </style>
+  <script>
+    function onTurnstileSuccess(token) {
+      // A Turnstile token alone does NOT mean server verification succeeded.
+      // Laravel must validate this token using Cloudflare Siteverify.
+      document.getElementById("status").textContent =
+        "Challenge completed. Waiting for secure server verification.";
+      document.getElementById("token").value = token;
+    }
+
+    function onTurnstileExpired() {
+      document.getElementById("token").value = "";
+      document.getElementById("status").textContent =
+        "Verification expired. Please try again.";
+    }
+
+    function onTurnstileError() {
+      document.getElementById("token").value = "";
+      document.getElementById("status").textContent =
+        "Verification could not load. Check your connection and retry.";
+    }
+  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <main class="card">
+    <div class="logo">STREAM<span>BOX</span></div>
+    <div class="shield" aria-hidden="true">✓</div>
+    <h1>Verify you're human</h1>
+    <p>Complete Cloudflare's security check to continue to StreamBox.</p>
+
+    <div class="captcha">
+      <!-- Replace SITE_KEY_HERE with your real Cloudflare Turnstile site key.
+           Then add the official Turnstile script and widget attributes. -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFk3Whq684FdEPj_" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+    </div>
+
+    <input type="hidden" id="token" value="">
+    <div id="status" role="status" aria-live="polite">
+      Complete the security check above.
+    </div>
+    <p class="note">Secure verification requires server-side validation.</p>
+  </main>
+</body>
+</html>
